@@ -51,9 +51,11 @@ class _CounterPageState extends State<CounterPage> {
 	Widget build(BuildContext context) {
 		return Scaffold(
       backgroundColor: const Color.fromARGB(255, 51, 49, 49),
+      // use Center to center in the middle of the page
       body: Center(
+          // GridView allows for 2D array
           child: GridView.builder(
-            itemCount: 4,
+            itemCount: numPlayers,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5), 
             itemBuilder: (BuildContext context, int index) {
               if(index % 2 == 0) {

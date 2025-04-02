@@ -19,6 +19,19 @@ class _LifeTileState extends State<LifeTile> {
 			life++;
 		});
 	}
+  void plus10Counter() {
+		// setState rebuilds the widget to reflect changes
+		setState(() {
+			life+=10;
+		});
+	}
+
+  void minus10Counter() {
+		// setState rebuilds the widget to reflect changes
+		setState(() {
+			life-=10;
+		});
+	}
 
 	void decrementCounter() {
 		setState(() {
@@ -34,12 +47,13 @@ class _LifeTileState extends State<LifeTile> {
 
   Widget renderWidget() {
     if(isDead()) {
-      return Text("You Fucking Suck");
+      return Text("You Suck");
     } 
     return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
+              onLongPress: minus10Counter,
               onPressed: decrementCounter, 
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 55, 30, 97)
@@ -58,6 +72,7 @@ class _LifeTileState extends State<LifeTile> {
               ],
             ),
             ElevatedButton(
+              onLongPress: plus10Counter,
               onPressed: incrementCounter, 
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 55, 30, 97)
