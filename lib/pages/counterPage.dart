@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:magicapp/components/lifeTile.dart';
 
 // Stateful Widget updates the value on screen
@@ -50,12 +51,32 @@ class _CounterPageState extends State<CounterPage> {
 	Widget build(BuildContext context) {
 		return Scaffold(
       backgroundColor: const Color.fromARGB(255, 51, 49, 49),
-			body: Center(
-				child: Column(
-					mainAxisAlignment: MainAxisAlignment.center,
-					children: renderPlayers(),
-				)
-			)
+      body: Center(
+          child: GridView.builder(
+            itemCount: 4,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5), 
+            itemBuilder: (BuildContext context, int index) {
+              if(index % 2 == 0) {
+                return RotatedBox(
+                  quarterTurns: 1,
+                  child: LifeTile(commander: "The Wise Mothman")
+                );
+              }
+              else {
+                  return RotatedBox(
+                    quarterTurns: 3,
+                    child: LifeTile(commander: "The Wise Mothman")
+                  );
+              }
+            }
+        )
+      )
+			// body: Center(
+			// 	child: Column(
+			// 		mainAxisAlignment: MainAxisAlignment.center,
+			// 		children: renderPlayers(),
+			// 	)
+			// )
 		);
 	}
 }

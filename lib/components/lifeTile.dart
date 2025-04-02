@@ -47,12 +47,13 @@ class _LifeTileState extends State<LifeTile> {
               child: Icon(Icons.remove)
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  widget.commander, style: TextStyle(fontSize: 40)
+                  widget.commander, style: TextStyle(fontSize: 20)
                 ),
                 Text(
-                  life.toString(), style: TextStyle(fontSize: 40)
+                  life.toString(), style: TextStyle(fontSize: 20)
                 ),
               ],
             ),
