@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class LifeTile extends StatefulWidget {
@@ -13,13 +15,22 @@ class LifeTile extends StatefulWidget {
 class _LifeTileState extends State<LifeTile> {
   int life = 40;
   int commanderDmg = 0;
+  Timer? timer;
+  Duration delay = const Duration(milliseconds: 700);
+
   void incrementCounter() {
 		// setState rebuilds the widget to reflect changes
 		setState(() {
 			life++;
 		});
 	}
-  void plus10Counter() {
+
+  void stopTimer() {
+    timer?.cancel();
+    timer = null;
+  }
+
+  void add10Counter() {
 		// setState rebuilds the widget to reflect changes
 		setState(() {
 			life+=10;
@@ -38,6 +49,23 @@ class _LifeTileState extends State<LifeTile> {
 			life--;
 		});
 	}
+
+  void startAddTimer() {
+		// setState rebuilds the widget to reflect changes
+    if(timer != null) return;
+    timer = Timer.periodic(delay, (timer) {
+      add10Counter();
+    });
+	}
+
+  void startMinusTimer() {
+    // setState rebuilds the widget to reflect changes
+    if(timer != null) return;
+    timer = Timer.periodic(delay, (timer) {
+      minus10Counter();
+    });
+  }
+
   bool isDead() {
     if(life <= 0) {
       return true;
@@ -52,13 +80,17 @@ class _LifeTileState extends State<LifeTile> {
     return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              onLongPress: minus10Counter,
-              onPressed: decrementCounter, 
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 55, 30, 97)
+            GestureDetector(
+              onTap: decrementCounter,
+              onLongPress: startMinusTimer,
+              onLongPressEnd: (details) => stopTimer(),
+              child: ElevatedButton(
+                onPressed: () {}, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 55, 30, 97)
+                ),
+                child: Icon(Icons.remove)
               ),
-              child: Icon(Icons.remove)
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -71,13 +103,17 @@ class _LifeTileState extends State<LifeTile> {
                 ),
               ],
             ),
-            ElevatedButton(
-              onLongPress: plus10Counter,
-              onPressed: incrementCounter, 
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 55, 30, 97)
+            GestureDetector(
+              onTap: incrementCounter,
+              onLongPress: startAddTimer,
+              onLongPressEnd: (details) => stopTimer(),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 55, 30, 97)
+                ),
+                child: Icon(Icons.add)
               ),
-              child: Icon(Icons.add)
             ),
           ],
       );

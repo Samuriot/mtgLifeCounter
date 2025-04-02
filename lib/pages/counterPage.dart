@@ -56,16 +56,16 @@ class _CounterPageState extends State<CounterPage> {
           // GridView allows for 2D array
           child: GridView.builder(
             itemCount: numPlayers,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5), 
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5), 
             itemBuilder: (BuildContext context, int index) {
               if(index % 2 == 0) {
-                return RotatedBox(
+                return const RotatedBox(
                   quarterTurns: 1,
                   child: LifeTile(commander: "The Wise Mothman")
                 );
               }
               else {
-                  return RotatedBox(
+                  return const RotatedBox(
                     quarterTurns: 3,
                     child: LifeTile(commander: "The Wise Mothman")
                   );
