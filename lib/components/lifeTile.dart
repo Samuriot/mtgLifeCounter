@@ -13,11 +13,14 @@ class LifeTile extends StatefulWidget {
 }
 
 class _LifeTileState extends State<LifeTile> {
+
+  // member variables
   int life = 40;
   int commanderDmg = 0;
   Timer? timer;
   Duration delay = const Duration(milliseconds: 700);
 
+  // increments life & updates UI
   void incrementCounter() {
 		// setState rebuilds the widget to reflect changes
 		setState(() {
@@ -25,11 +28,14 @@ class _LifeTileState extends State<LifeTile> {
 		});
 	}
 
-  void stopTimer() {
-    timer?.cancel();
-    timer = null;
-  }
+  // decrements life & updates UI
+  void decrementCounter() {
+		setState(() {
+			life--;
+		});
+	}
 
+  // increments life by 10 & updates UI 
   void add10Counter() {
 		// setState rebuilds the widget to reflect changes
 		setState(() {
@@ -37,6 +43,7 @@ class _LifeTileState extends State<LifeTile> {
 		});
 	}
 
+  // decrements life by 10 & updates UI 
   void minus10Counter() {
 		// setState rebuilds the widget to reflect changes
 		setState(() {
@@ -44,12 +51,8 @@ class _LifeTileState extends State<LifeTile> {
 		});
 	}
 
-	void decrementCounter() {
-		setState(() {
-			life--;
-		});
-	}
-
+  // uses a Timer for for holding Gestures
+  // updates the UI via add10Counter() and calls this method every 700 ms
   void startAddTimer() {
 		// setState rebuilds the widget to reflect changes
     if(timer != null) return;
@@ -58,6 +61,8 @@ class _LifeTileState extends State<LifeTile> {
     });
 	}
 
+  // uses a Timer for for holding Gestures
+  // updates the UI via minus10Counter() and calls this method every 700 ms
   void startMinusTimer() {
     // setState rebuilds the widget to reflect changes
     if(timer != null) return;
@@ -66,6 +71,14 @@ class _LifeTileState extends State<LifeTile> {
     });
   }
 
+  // uses a Timer for for holding Gestures
+  // stops the timer was this function is called, and sets var back to null
+  void stopTimer() {
+    timer?.cancel();
+    timer = null;
+  }
+
+  // checks if a player has died yet
   bool isDead() {
     if(life <= 0) {
       return true;
@@ -75,7 +88,9 @@ class _LifeTileState extends State<LifeTile> {
 
   Widget renderWidget() {
     if(isDead()) {
-      return Text("You Suck");
+      return Center(
+        child: Text("You Suck", style: TextStyle(fontSize: 60))
+      );
     } 
     return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
